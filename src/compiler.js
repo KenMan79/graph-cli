@@ -282,6 +282,8 @@ class Compiler {
 
       asc.main(
         [
+          '--exportRuntime',
+          '--runtime', 'stub',
           inputFile,
           global,
           '--baseDir',
@@ -309,6 +311,7 @@ class Compiler {
 
       return outFile
     } catch (e) {
+      console.error(e)
       throw Error(`Failed to compile data source mapping: ${e.message}`)
     }
   }
@@ -364,6 +367,8 @@ class Compiler {
 
       asc.main(
         [
+          '--exportRuntime',
+          '--runtime', 'stub',
           inputFile,
           global,
           '--baseDir',
@@ -391,6 +396,7 @@ class Compiler {
 
       return outFile
     } catch (e) {
+      console.log(e)
       throw Error(`Failed to compile data source template: ${e.message}`)
     }
   }
