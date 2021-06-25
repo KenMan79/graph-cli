@@ -13,9 +13,9 @@ const cliTest = (title, args, testPath, options) => {
       let cwd =
         options !== undefined && options.cwd ? options.cwd : resolvePath(`./${testPath}`)
 
-      if (title === 'From example' || title === 'From contract') {
-        console.log('title: ', title)
-      }
+      // if (title === 'From example' || title === 'From contract') {
+      //   console.log('title: ', title)
+      // }
       let [exitCode, stdout, stderr] = await runCli(args, cwd)
 
       let expectedExitCode = undefined

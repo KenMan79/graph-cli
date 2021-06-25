@@ -474,7 +474,6 @@ const runCodegen = async (toolbox, directory, codegenCommand) =>
     `Failed to generate code from ABI and GraphQL schema`,
     `Warnings while generating code from ABI and GraphQL schema`,
     async spinner => {
-      console.error('directory', directory)
       await toolbox.system.run(codegenCommand, { cwd: directory })
       return true
     },
