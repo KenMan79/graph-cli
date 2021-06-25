@@ -474,6 +474,7 @@ const runCodegen = async (toolbox, directory, codegenCommand) =>
     `Failed to generate code from ABI and GraphQL schema`,
     `Warnings while generating code from ABI and GraphQL schema`,
     async spinner => {
+      console.error('directory', directory)
       await toolbox.system.run(codegenCommand, { cwd: directory })
       return true
     },
@@ -606,21 +607,27 @@ const initSubgraphFromContract = async (
   { commands },
 ) => {
   let { print } = toolbox
+  // console.log('BEGINNING')
+  // console.error('fuck')
+  // print.error('bad')
 
   // Fail if the subgraph name is invalid
   if (!revalidateSubgraphName(toolbox, subgraphName, { allowSimpleName })) {
+    // console.log('BAD IF 1')
     process.exitCode = 1
     return
   }
 
   // Fail if the output directory already exists
   if (toolbox.filesystem.exists(directory)) {
+    // console.log('BAD IF 2')
     print.error(`Directory or file "${directory}" already exists`)
     process.exitCode = 1
     return
   }
 
   if (abiEvents(abi).length === 0) {
+    // console.log('BAD IF 3')
     // Fail if the ABI does not contain any events
     print.error(`ABI does not contain any events`)
     process.exitCode = 1
@@ -648,6 +655,7 @@ const initSubgraphFromContract = async (
       return true
     },
   )
+  // console.log('AFTER SCAFFOLD')
   if (scaffold !== true) {
     process.exitCode = 1
     return
@@ -655,6 +663,7 @@ const initSubgraphFromContract = async (
 
   // Initialize a fresh Git repository
   let repo = await initRepository(toolbox, directory)
+  // console.log('AFTER INIT REPOSITORY')
   if (repo !== true) {
     process.exitCode = 1
     return
@@ -662,12 +671,14 @@ const initSubgraphFromContract = async (
 
   // Install dependencies
   let installed = await installDependencies(toolbox, directory, commands.install)
+  // console.log('AFTER INSTALL DEPENDENCIES')
   if (installed !== true) {
     process.exitCode = 1
     return
   }
 
   // Run code-generation
+  // console.log('THIS DOESN\'T PRINT')
   let codegen = await runCodegen(toolbox, directory, commands.codegen)
   if (codegen !== true) {
     process.exitCode = 1

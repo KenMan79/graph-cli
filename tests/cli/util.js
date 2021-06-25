@@ -13,6 +13,9 @@ const cliTest = (title, args, testPath, options) => {
       let cwd =
         options !== undefined && options.cwd ? options.cwd : resolvePath(`./${testPath}`)
 
+      if (title === 'From example' || title === 'From contract') {
+        console.log('title: ', title)
+      }
       let [exitCode, stdout, stderr] = await runCli(args, cwd)
 
       let expectedExitCode = undefined
@@ -47,7 +50,11 @@ const runCli = async (args = [], cwd = process.cwd()) => {
   // Resolve the path to graph.js
   let graphCli = path.join(__dirname, '..', '..', 'bin', 'graph')
 
-  console.log('before cwd: ', cwd)
+  // if (args[0] === 'init') {
+  //   console.log('before cwd: ', cwd)
+  //   console.log('process.cwd()', process.cwd())
+  //   console.log('__dirname', __dirname)
+  // }
 
   // Make sure to set an absolute working directory
   cwd = cwd[0] !== '/' ? path.resolve(__dirname, cwd) : cwd
@@ -56,8 +63,9 @@ const runCli = async (args = [], cwd = process.cwd()) => {
     let stdout = ''
     let stderr = ''
     const command = `${graphCli} ${args.join(' ')}`
-    console.log("THE COMMAND: ", command)
-    console.log('THE CWD: ', cwd)
+    // if (args[0] === 'init') {
+    //   console.log("THE COMMAND: ", command)
+    // }
     const child = spawn(command, { cwd })
 
     child.on('error', error => {
