@@ -47,6 +47,8 @@ const runCli = async (args = [], cwd = process.cwd()) => {
   // Resolve the path to graph.js
   let graphCli = path.join(__dirname, '..', '..', 'bin', 'graph')
 
+  console.log('before cwd: ', cwd)
+
   // Make sure to set an absolute working directory
   cwd = cwd[0] !== '/' ? path.resolve(__dirname, cwd) : cwd
 
@@ -54,6 +56,8 @@ const runCli = async (args = [], cwd = process.cwd()) => {
     let stdout = ''
     let stderr = ''
     const command = `${graphCli} ${args.join(' ')}`
+    console.log("THE COMMAND: ", command)
+    console.log('THE CWD: ', cwd)
     const child = spawn(command, { cwd })
 
     child.on('error', error => {
