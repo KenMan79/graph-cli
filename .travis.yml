@@ -22,7 +22,7 @@ services:
 script:
   - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
   # Run the test suite
-  - yarn test
+  - yarn test -- -t 'From contract'
   # Test codegen and build in the example subgraph
   # - cd examples/example-subgraph
   # - yarn
